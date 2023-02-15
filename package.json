@@ -1,0 +1,12 @@
+{
+  "name": "@exam2022/front",
+  "version": "1.0.0",
+  "description": "2022 Node.jsの課題",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
