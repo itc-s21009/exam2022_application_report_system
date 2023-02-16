@@ -9,22 +9,34 @@ router.post('/register', async (req, res) => {
             code: student_code,
             name: student_name
         }
-    }).catch(() => res.json({status: 1}))
-    res.json({status: 0})
+    }).then(() => {
+        return res.json({status: 0})
+    }).catch(() => {
+        return res.json({status: 1})
+    })
 })
 
 router.post('/login', async (req, res) => {
     const {student_code} = req.body
+    if (req.session.student_code) {
+        return res.json({code: req.session.student_code})
+    }
     const student = await prisma.student.findFirst({
         where: {
             code: student_code
         }
     })
-    res.json({status: student ? 1 : 0})
+    if (student) {
+        req.session.student_code = student_code
+        return res.json({status: 1})
+    } else {
+        return res.json({status: 0})
+    }
 })
 
 router.get('/logout', (req, res) => {
-    res.json({status: 0})
+    delete req.session.student_code
+    return res.json({status: 0})
 })
 
 module.exports = router
