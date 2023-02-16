@@ -20,10 +20,27 @@ app.use(session({
     saveUninitialized: true
 }))
 
+// セッションに学生IDがあって、そのIDのStudentが存在する場合は次に進める
+// それ以外は {"status": 1} を返す
+const checkAuth = async (req, res, next) => {
+    const {student_id} = req.session
+    if (student_id) {
+        const student = await prisma.student.findFirst({
+            where: {
+                id: student_id
+            }
+        })
+        if (student) {
+            return next()
+        }
+    }
+    return res.json({status: 1})
+}
+
 const userRouter = require('./routes/user')
 const absencesRouter = require('./routes/absences')
 
 app.use(userRouter)
-app.use('/absences', absencesRouter)
+app.use('/absences', checkAuth, absencesRouter)
 
 app.listen(3000, () => console.log('listening on 3000'))

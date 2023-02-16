@@ -18,9 +18,6 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const {student_code} = req.body
-    if (req.session.student_code) {
-        return res.json({code: req.session.student_code})
-    }
     const student = await prisma.student.findFirst({
         where: {
             code: student_code
