@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
         }
     })
     if (student) {
-        req.session.student_code = student_code
+        req.session.student_id = student.id
         return res.json({status: 1})
     } else {
         return res.json({status: 0})
@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    delete req.session.student_code
+    delete req.session.student_id
     return res.json({status: 0})
 })
 
