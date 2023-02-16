@@ -11,6 +11,10 @@ module.exports = prisma
 app.use(express.json())
 
 app.use(session({
+    store: new (require('connect-pg-simple')(session))({
+        conString: process.env.DATABASE_URL,
+        createTableIfMissing: true
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
