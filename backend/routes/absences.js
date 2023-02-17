@@ -3,7 +3,12 @@ const router = express.Router()
 const prisma = require('../index')
 
 router.get('/', async (req, res) => {
-    const absences = await prisma.absence.findMany()
+    const student = res.locals.student
+    const absences = await prisma.absence.findMany({
+        where: {
+            student_id: student.id
+        }
+    })
     res.json(absences)
 })
 
