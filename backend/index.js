@@ -21,6 +21,7 @@ app.use(session({
 }))
 
 // セッションに学生IDがあって、そのIDのStudentが存在する場合は次に進める
+// ある場合はres.locals.studentにデータを入れる
 // それ以外は {"status": 1} を返す
 const checkAuth = async (req, res, next) => {
     const {student_id} = req.session
@@ -31,6 +32,7 @@ const checkAuth = async (req, res, next) => {
             }
         })
         if (student) {
+            res.locals.student = student
             return next()
         }
     }
