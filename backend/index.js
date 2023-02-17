@@ -41,8 +41,10 @@ const checkAuth = async (req, res, next) => {
 
 const userRouter = require('./routes/user')
 const absencesRouter = require('./routes/absences')
+const certificateRouter = require('./routes/certificate')
 
 app.use(userRouter)
 app.use('/absences', checkAuth, absencesRouter)
+app.use('/certificate', checkAuth, certificateRouter)
 
 app.listen(3000, () => console.log('listening on 3000'))
