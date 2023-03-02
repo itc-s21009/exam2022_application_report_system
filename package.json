@@ -8,5 +8,9 @@
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "scripts": {
+    "start:back": "npm run start -w backend",
+    "start:back:dev": "npm run start:dev -w backend"
+  }
 }

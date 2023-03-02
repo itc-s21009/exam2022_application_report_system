@@ -4,9 +4,8 @@
   "description": "2022課題のバックエンド",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:back": "node index.js",
-    "start:back:dev": "nodemon index.js"
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
