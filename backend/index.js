@@ -4,6 +4,8 @@ const app = express()
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
+require('dotenv').config()
+
 const env_list = {
     DATABASE_URL: 'データベース接続用のURL',
     SESSION_SECRET: 'セッション用の秘密鍵',
