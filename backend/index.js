@@ -4,8 +4,19 @@ const app = express()
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-require('dotenv').config()
+const env_list = {
+    DATABASE_URL: 'データベース接続用のURL',
+    SESSION_SECRET: 'セッション用の秘密鍵',
+}
 
+const env = Object.keys(env_list).map(k => process.env[k])
+
+if (Object.values(env).includes(undefined)) {
+    console.log('必要な環境変数を.envファイルに設定してください')
+    console.log('環境変数一覧：')
+    Object.keys(env_list).forEach(e => console.log(`${e}: ${env_list[e]}`))
+    process.exit(1)
+}
 module.exports = prisma
 
 app.use(express.json())
